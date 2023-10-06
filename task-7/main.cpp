@@ -1,4 +1,6 @@
 #include <iostream>
+#include <array>
+#include <string>
 using namespace std;
 
 //class CharacterClass
@@ -18,13 +20,36 @@ using namespace std;
 //CharacterClass Archer{9, 2, 12, 7, 15, 10};
 
 string classes[]{ "Spearman", "Knight", "Archer" };
+int classIndex = -1;
+string name;
 
 void main()
 {
-    for (string a : classes)
+    cout << "Choose a class: \n";
+    
+    while (classIndex < 0) 
     {
-
+        for (int i = 0; i < sizeof(classes) / sizeof(classes[0]); i++)
+        {
+            cout << to_string(i) + ".  " + classes[i] + "\n";
+        }
+        cout << "\n";
+        cin >> classIndex;
+        if (classIndex < 0 || classIndex > sizeof(classes) / sizeof(classes[0])-1)
+        {
+            cout << "Invalid choice.\n";
+            classIndex = -1;
+            continue;
+        }
+        cout << "You have chosen the " + classes[classIndex] + " class.\n";
     }
+
+    cout << "Please enter your name: ";
+    cin >> name;
+
+    cout << "Player details:\n";
+    cout << " - Name: " + name + "\n";
+    cout << " - Class: " + classes[classIndex] + "\n";
 
     //Using structs and arrays, build a character class and name selection system
     //for a text-based game. The program should firstly prompt the user for a class
