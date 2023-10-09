@@ -1,30 +1,76 @@
 #include <iostream>
 #include <string>
+
 using namespace std;
+
+
+string sentenceCase(string text) 
+{
+    bool nextLetterCapitalise = true;
+    string newStr = "";
+    for (int i = 0; i < text.length(); i++)
+    {
+        if (nextLetterCapitalise && isalnum(text[i]))
+        {
+            newStr += toupper(text[i]);
+            nextLetterCapitalise = false;
+        }
+        else if (text[i] == '.')
+        {
+            newStr += text[i];
+            nextLetterCapitalise = true;
+        }
+        else newStr += text[i];
+    }
+    return newStr;
+}
+
+string upperCase(string text) 
+{
+    string newStr = "";
+    for (int i = 0; i < text.length(); i++)
+    {
+        newStr += toupper(text[i]);
+    }
+    return newStr;
+}
+
+string lowerCase(string text)
+{
+    string newStr = "";
+    for (int i = 0; i < text.length(); i++)
+    {
+        newStr += tolower(text[i]);
+    }
+    return newStr;
+}
 
 void main()
 {
     string text;
-    string compareStr = ".";
+    int modification;
+    bool modified = false;
     cout << "Please enter some text: ";
     getline(cin, text);
 
-    string modifiedText = text;
-
-    for(int i = 0; i < text.length(); i++) 
+    while (!modified)
     {
-        if (text[i] == compareStr[0])
+        cout << "What would you like to do to the text?\n - 1: Sentence Case\n - 2: UPPER CASE\n - 3: lower case\n";
+        cin >> modification;
+
+        modified = true;
+
+        if (modification == 1) cout << sentenceCase(text);
+        else if (modification == 2) cout << upperCase(text);
+        else if (modification == 3) cout << lowerCase(text);
+        else 
         {
-            cout << modifiedText;
-            if (i + 2 < text.length()) modifiedText = toupper(text[i + 2]);
-            else break;
+            modified = false;
+            cout << "Please use a valid menu option.\n";
         }
     }
 
-    modifiedText = toupper(modifiedText[0]);
-
-    cout << "\n\n> " + modifiedText;
-    
+    // hello. i am a robot. beep boop.
     //Make a program which converts any given string to sentence
     //case. For example:
 

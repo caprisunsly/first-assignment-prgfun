@@ -16,7 +16,7 @@ void main()
     cout << "Please enter your age: ";
     cin >> age;
 
-    cout << "- Name: " + name + "\n- Username: [" + clanTag + "]" + username + "\n- Age: " + to_string(age);
+    cout << "- Name: " + name + "\n- Username: [" + clanTag + "]" + username + "\n- Age: " << age;
 
     //Add code to prompt the player for their name, and then
     //greet them with that name. For example, 
