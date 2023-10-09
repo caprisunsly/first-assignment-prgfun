@@ -3,22 +3,6 @@
 #include <string>
 using namespace std;
 
-//class CharacterClass
-//{
-//public:
-//    int maxHealth;
-//    int skrumblyness;
-//
-//    int strength;
-//    int charisma;
-//    int dexterity;
-//    int intelligence;
-//};
-//
-//CharacterClass Spearman{10, 4, 15, 12, 10, 7};
-//CharacterClass Knight{12, 6, 10, 15, 12, 7 };
-//CharacterClass Archer{9, 2, 12, 7, 15, 10};
-
 string classes[]{ "Spearman", "Knight", "Archer" };
 int classIndex = -1;
 string name;

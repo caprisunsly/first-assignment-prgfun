@@ -2,70 +2,95 @@
 #include <array>
 #include <string>
 #include <vector>
+#include <regex>
+#include <sstream>
 
 using namespace std;
 
 int inventorySize;
 vector <int> inventory;
+bool looping = true;
 
-string itemList[]{ "Empty", "Potion", "Sword", "Bread", "Animal Hide", "Raw Meat", "Wood", "Stone" };
+string itemList[]{ "Empty", "Potion", "Sword", "Bread", "AnimalHide", "RawMeat", "Wood", "Stone"};
 
 
 void commands()
 {
-	cout << "Commands:\n view (number)\n show_all\n set (itemIndex)\n items\n exit\n";
+	cout << "Commands:\n view (number)\n show_all\n set (itemSlot, itemIndex)\n items\n exit\n";
 }
 
-void view(string input)
+void view(string slotStr)
 {
-	int index = stoi(input.erase(0, 5));
-	cout << " - Slot " + to_string(index) + ":\nName: " + itemList[inventory[index]];
+	int itemSlot = stoi(slotStr);
+	if (itemSlot < 0 || itemSlot > inventorySize) cout << "Invalid inventory slot. Please enter a valid inventory slot from 0 to " +
+			to_string(inventorySize) + "\n";
+	else cout << " - Slot " + to_string(itemSlot) + ":\nName: " + itemList[inventory[itemSlot]] + "\n";
 }
 void showAll()
 {
 	for (int i = 0; i < inventory.size(); i++)
 	{
-		cout << " - Slot " + to_string(i) + ": " + itemList[inventory[i]];
+		cout << " - Slot " + to_string(i) + ": " + itemList[inventory[i]] + "\n";
 	}
 }
 
-void set(string input)
+void set(vector <string> input)
 {
-	int inventorySlot = stoi(input.erase(0, 4).erase(input.length(), 1));
-	int itemIndex = stoi(to_string(input.back()));
+	int inventorySlot;
+	int itemIndex;
 
-	inventory[inventorySlot] = itemIndex;
+	inventorySlot = stoi(input[1]);
+	itemIndex = stoi(input[2]);
 
-	cout << " - Slot " + to_string(inventorySlot) + " set to " + itemList[itemIndex];
+	if (itemIndex < 0 || itemIndex > sizeof(itemList) / sizeof(itemList[0])) cout << "Invalid item. Please enter a valid item number from 0 to " +
+		to_string(sizeof(itemList) / sizeof(itemList[0])) + "\n";
+	else if (inventorySlot < 0 || inventorySlot > inventorySize) cout << "Invalid inventory slot. Please enter a valid inventory slot from 0 to " +
+		to_string(inventorySize) + "\n";
+	else 
+	{
+		inventory[inventorySlot] = itemIndex;
+		cout << " - Slot " + to_string(inventorySlot) + " set to " + itemList[itemIndex] + "\n";
+	}
 }
 
 void items()
 {
-	for (int i = 0; i < itemList->size(); i++) 
+	for (int i = 0; i < sizeof(itemList) / sizeof(itemList[0]); i++)
 	{
 		cout << " - " + to_string(i) + ": " + itemList[i] + "\n";
 	}
 }
-bool looping = true;
 
 void main()
 {
+	bool inventorySelected = false;
 	cout << "Enter inventory size: ";
-	cin >> inventorySize;
+	while (inventorySize > 16 || inventorySize < 1) 
+	{
+		if (inventorySelected) cout << "Invalid inventory size, please enter a number between 1 and 16: ";
+		cin >> inventorySize;
+		inventorySelected = true;
+	}
+
 	cin.ignore();
 
-	inventory.push_back(inventorySize);
+	inventory.resize(inventorySize, 0);
 	commands();
 	string input;
 	while (looping) 
 	{
 	    getline(cin, input);
-		cout << "hfsjhgkwg";
-		if (input.find("view ")) view(input);
-		if (input == "show_all") showAll();
-		if (input.find("set ")) set(input);
-		if (input == "items") items();
-		if (input == "commands") commands();
-		if (input == "exit") looping = false;
+		string s;
+		stringstream ss(input);
+		vector <string> userInput;
+		while (getline(ss, s, ' ')) {
+			userInput.push_back(s);
+		}
+		if (userInput[0] == "view") view(userInput[1]);
+		else if (userInput[0] == "show_all") showAll();
+		else if (userInput[0] == "set") set(userInput);
+		else if (userInput[0] == "items") items();
+		else if (userInput[0] == "commands") commands();
+		else if (userInput[0] == "exit") looping = false;
 	}
 }
