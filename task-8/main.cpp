@@ -2,7 +2,6 @@
 #include <array>
 #include <string>
 #include <vector>
-#include <regex>
 #include <sstream>
 
 using namespace std;
