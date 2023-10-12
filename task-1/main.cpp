@@ -3,7 +3,7 @@ using namespace std;
 
 void main()
 {
-
+    //feels like this doesnt need commenting, but the text looks misaligned here because of the escape sequences
     cout << " ____             __           ____                             __             \n";
     cout << "/\\  _`\\          /\\ \\__       /\\  _`\\                          /\\ \\__          \n";
     cout << "\\ \\ \\L\\ \\  __  __\\ \\ ,_\\    __\\ \\ \\L\\ \\     __     __      ____\\ \\ ,_\\   ____  \n";

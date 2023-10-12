@@ -4,34 +4,38 @@ using namespace std;
 
 void ConfigureBox(string str, int vPad, int hPad)
 {
+
     string boxLines;
     string vPadSpace;
-    string vPadStr = "";
-    string hPadStr = "";
-    string hPadStr2 = "";
+    string vPadStr;
+    string hPadStr;
+
+    //making the top and bottom lines the correct length
     for (int i = 0; i < str.length() + 4 + hPad; i++)
     {
         boxLines += "*";
         if (i < str.length() + hPad) vPadSpace += " ";
     }
+    // adds a blank line for each vertical padding
     for (int i = 0; i < vPad; i++) 
     {
         vPadStr += "* " + vPadSpace + " *\n";
     }
-    for (int i = 0; i < hPad/2; i++)
+    // add a space to a string for each horizontal padding
+    for (int i = 0; i < hPad; i++)
     {
         hPadStr += " ";
-        hPadStr2 += " ";
     }
-    if (hPad % 2 != 0) hPadStr2 += " ";
+    //outputs the box
     cout << boxLines + "\n" + vPadStr;
-    cout << "* " + hPadStr + str + hPadStr2 + " *\n";
+    cout << "* " + hPadStr + str + hPadStr + " *\n";
     cout << vPadStr + boxLines;
 }
 
 void main()
 {
     string str;
+    //vertical and horizontal padding
     int vPad, hPad;
     cout << "Enter a string: ";
     cin >> str;
@@ -39,7 +43,10 @@ void main()
     cin >> vPad;
     cout << "Enter the amount of horizontal padding: ";
     cin >> hPad;
+    //calls function ConfigureBox, which also outputs the box
     ConfigureBox(str, vPad, hPad);
+
+
     //For this challenge, produce a program which 
     //prompts the user for a string of text. When
     //this text is entered, the program should:

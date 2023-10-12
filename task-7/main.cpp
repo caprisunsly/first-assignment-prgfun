@@ -3,37 +3,60 @@
 #include <string>
 using namespace std;
 
-string classes[]{ "Spearman", "Knight", "Archer" };
+//Character details, expanded into a struct because I felt like it
+struct Character {
+    string characterName;
+    string characterClass;
+    int maxHealth;
+    int strength;
+    int dexterity;
+    int range;
+};
+
+//list of classes, initialised as an array. Ideally would pull from a text file or something
+Character classes[]{ {"", "Spearman", 10, 6, 3, 6}, {"", "Knight", 12, 9, 3, 3}, {"", "Archer", 8, 3, 6, 6}};
+//sets class index to -1 to force a loop of the class selection section
 int classIndex = -1;
-string name;
 
 void main()
 {
     cout << "Choose a class: \n";
     
+    //loop for class selection
     while (classIndex < 0) 
     {
+        //list all classes, which can be expanded
         for (int i = 0; i < sizeof(classes) / sizeof(classes[0]); i++)
         {
-            cout << to_string(i) + ".  " + classes[i] + "\n";
+            cout << to_string(i) + ".  " << classes[i].characterClass + "\n";
         }
-        cout << "\n";
+        cout << endl;
+        //wait for class selection
         cin >> classIndex;
+        //checks if the player has selected a class index between 0 and the number of classes in the array. c++ doesnt calculate array.length
+        //or array.size as the number of items in the array, but the number of bytes the entire array takes up, so this fixes that
         if (classIndex < 0 || classIndex > sizeof(classes) / sizeof(classes[0])-1)
         {
             cout << "Invalid choice.\n";
             classIndex = -1;
             continue;
         }
-        cout << "You have chosen the " + classes[classIndex] + " class.\n";
+        cout << "You have chosen the " << classes[classIndex].characterClass << " class.\n";
     }
 
+    //prompt player name
     cout << "Please enter your name: ";
-    cin >> name;
+    cin >> classes[classIndex].characterName;
 
+
+    //output it all to the console
     cout << "Player details:\n";
-    cout << " - Name: " + name + "\n";
-    cout << " - Class: " + classes[classIndex] + "\n";
+    cout << " - Name: " << classes[classIndex].characterName << "\n";
+    cout << " - Class: " << classes[classIndex].characterClass << "\n";
+    cout << " - Stats:\n";
+    cout << "        : Strength " << classes[classIndex].strength << "\n";
+    cout << "        : Dexterity" << classes[classIndex].dexterity << "\n";
+    cout << "        : Range" << classes[classIndex].range << "\n";
 
     //Using structs and arrays, build a character class and name selection system
     //for a text-based game. The program should firstly prompt the user for a class

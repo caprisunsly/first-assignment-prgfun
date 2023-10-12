@@ -6,20 +6,24 @@ using namespace std;
 
 string sentenceCase(string text) 
 {
+    //set to true to automatically capitalise the first letter
     bool nextLetterCapitalise = true;
-    string newStr = "";
+    string newStr;
     for (int i = 0; i < text.length(); i++)
     {
+        //checks if the next letter should be capitalised and if the next letter is alphanumeric
         if (nextLetterCapitalise && isalnum(text[i]))
         {
             newStr += toupper(text[i]);
             nextLetterCapitalise = false;
         }
+        //checks if the next letter is a fullstop, if yes, then the next letter should be capitalised
         else if (text[i] == '.')
         {
             newStr += text[i];
             nextLetterCapitalise = true;
         }
+        // output the letter because it shouldnt be capitalised
         else newStr += text[i];
     }
     return newStr;
@@ -28,6 +32,7 @@ string sentenceCase(string text)
 string upperCase(string text) 
 {
     string newStr = "";
+    //capitalise every letter, return the result
     for (int i = 0; i < text.length(); i++)
     {
         newStr += toupper(text[i]);
@@ -38,6 +43,7 @@ string upperCase(string text)
 string lowerCase(string text)
 {
     string newStr = "";
+    //lowercase every letter, return the result
     for (int i = 0; i < text.length(); i++)
     {
         newStr += tolower(text[i]);
@@ -53,16 +59,19 @@ void main()
     cout << "Please enter some text: ";
     getline(cin, text);
 
+    //loop for valid input
     while (!modified)
     {
         cout << "What would you like to do to the text?\n - 1: Sentence Case\n - 2: UPPER CASE\n - 3: lower case\n";
         cin >> modification;
 
+        //used to check if the user has given a valid input
         modified = true;
 
         if (modification == 1) cout << sentenceCase(text);
         else if (modification == 2) cout << upperCase(text);
         else if (modification == 3) cout << lowerCase(text);
+        //if input was invalid, loop again
         else 
         {
             modified = false;
@@ -70,7 +79,6 @@ void main()
         }
     }
 
-    // hello. i am a robot. beep boop.
     //Make a program which converts any given string to sentence
     //case. For example:
 

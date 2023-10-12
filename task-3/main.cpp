@@ -5,7 +5,8 @@ using namespace std;
 
 //realised this wasnt necessary as long as i used << to concatenate strings instead of +
 
-//// remove trailing zeroes from float to make it look nicer when output to console
+//remove trailing zeroes from float to make it look nicer when output to console. this was actually unnecessary when using << instead of +
+// 
 //string removeTrailingZeros(float number)
 //{
 //    string str = to_string(number);
@@ -31,8 +32,9 @@ void main()
     // What number do you want to Square? 5
     // > 5 squared is 25.
 
+    //get number input, multiply by itself, output to console.
+
     float number, numberSq;
-    string numStr = "", numSqStr = "";
     cout << "Input a number to be squared: \n";
     cin >> number;
     numberSq = number * number;
